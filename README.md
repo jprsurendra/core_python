@@ -159,7 +159,7 @@ Abstraction is implemented using interface and abstract class while Encapsulatio
 
 Polymorphism allows us to define methods in the child class with the same name as defined in their parent class.
 
-[Example of Polymorphism](https://github.com/jprsurendra/core_python/blob/main/oops/iteration.py) 
+[Example of Polymorphism](https://github.com/jprsurendra/core_python/blob/main/oops/polymorphism.py) 
 
 
 ## Contribute
