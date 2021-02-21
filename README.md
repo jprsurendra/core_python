@@ -33,7 +33,7 @@ Use `__new__` when you need to control the creation of a new instance. Use `__in
 
 [Example of singleton class](https://github.com/jprsurendra/core_python/blob/main/oops/singleton.py) 
 
-[Example of LimitedInstances](https://github.com/jprsurendra/core_python/blob/main/oops/singleton.py) 
+[Example of LimitedInstances](https://github.com/jprsurendra/core_python/blob/main/oops/limited_instances.py) 
  
 
 ## What does built-in class attribute `__dict__` do in Python?
