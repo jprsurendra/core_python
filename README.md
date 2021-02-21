@@ -30,6 +30,7 @@ Well, the `__str__` function is supposed to return a human-readable format, whic
 Use `__new__` when you need to control the creation of a new instance. Use `__init__` when you need to control initialization of a new instance.
 
 [Example of simple class](https://github.com/jprsurendra/core_python/blob/main/oops/new_and_init_in_class.py) 
+
 [Example of singleton class](https://github.com/jprsurendra/core_python/blob/main/oops/singleton.py) 
  
 
