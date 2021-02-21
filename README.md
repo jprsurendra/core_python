@@ -32,6 +32,8 @@ Use `__new__` when you need to control the creation of a new instance. Use `__in
 [Example of simple class](https://github.com/jprsurendra/core_python/blob/main/oops/new_and_init_in_class.py) 
 
 [Example of singleton class](https://github.com/jprsurendra/core_python/blob/main/oops/singleton.py) 
+
+[Example of LimitedInstances](https://github.com/jprsurendra/core_python/blob/main/oops/singleton.py) 
  
 
 ## What does built-in class attribute `__dict__` do in Python?
