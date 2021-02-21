@@ -1,4 +1,4 @@
-# Understanding about classes and objects/instances
+# Understanding about python classes and objects/instances
 
 In object-oriented terminology, a class is a template for defining objects. It may contains some variables that can exist in an object, as well as "methods"--procedures for operating on those variables. 
 
