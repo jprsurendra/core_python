@@ -6,7 +6,16 @@ A class can be thought of as a `"type"`, with the objects(or instances) being a 
 
 Multiple objects/instances of a class can be created in a single program, just like you declare multiple variables of the same type (int, string etc...) in any program.
 
+## How to create a Class using type in Python?
 
+The type keyword used to create a new class on the fly and then instantiate it.
+```python
+    e1 = type('Employee', (), {})()
+    print(e1)
+     
+    e1.name = "John Doe"
+    print(e1.name)
+```
 # Magic Methods and Operator Overloading
 
 The so-called magic methods are special methods with fixed names. They are the methods with this clumsy syntax, i.e. the double underscores at the beginning and the end. 
