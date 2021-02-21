@@ -28,9 +28,8 @@ Well, the `__str__` function is supposed to return a human-readable format, whic
 ## What’s the difference between `__new__` and `__init__`?
 
 Use `__new__` when you need to control the creation of a new instance. Use `__init__` when you need to control initialization of a new instance.
-```
-     [Example](https://github.com/jprsurendra/core_python/blob/main/oops/new_and_init_in_class.py) 
-```
+[Example](https://github.com/jprsurendra/core_python/blob/main/oops/new_and_init_in_class.py) 
+
 
 
 
