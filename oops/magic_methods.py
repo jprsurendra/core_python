@@ -8,10 +8,10 @@ class IntegerNumber:
             raise ValueError("Argument 'num' must be an Integer Number")
 
     def __str__(self):
-        return "Value: " + str(self.__num)
+        return f'<<IntegerNumber>> value is {str(self.__num)}'
 
     def __repr__(self):
-        return "IntegerNumber(" + str(self) + "')"
+        return f'<<IntegerNumber>>(value is {str(self.__num)})'
 
 
     ''' 
