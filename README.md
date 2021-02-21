@@ -38,7 +38,7 @@ Use `__new__` when you need to control the creation of a new instance. Use `__in
 
 `__dict__` gives a dictionary view of the object. I.e. it is an object of 'dict' type that contains the object's attributes.
 
-You could do something fancier in Class.`__str__()` (or the `__unicode__()`) method:
+You could do something fancier in Class's `__str__()` (or the `__unicode__()`) method:
 ```python
     def __str__(self):
         retstr = ''
