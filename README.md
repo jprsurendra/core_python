@@ -96,6 +96,11 @@ Sample output of above program.
     print(index[2])
 ```
 
+## Aggregation and Composition in Python
+
+[Example of Aggregation and Composition](https://github.com/jprsurendra/core_python/blob/main/oops/singleton.py) 
+
+ 
 
 
 
