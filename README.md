@@ -120,10 +120,10 @@ which is implicitly captured by looping constructs to stop iterating.
 
 
 ## There are four Pillars of Object Oriented Programming:
- 	Abstraction
-	Encapsulation
-	Inheritance
-	Polymorphism
+    * Abstraction 
+    * Encapsulation
+    * Inheritance
+    * Polymorphism 
 Lets try to understand...
 
 ## Contribute
