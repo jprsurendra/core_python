@@ -116,7 +116,7 @@ The `__next__` method returns the next value and is implicitly called at each lo
 `__next__` raises a StopIteration exception when there are no more value to return,
 which is implicitly captured by looping constructs to stop iterating.
 
-[Example of Aggregation and Composition](https://github.com/jprsurendra/core_python/blob/main/oops/aggregation_and_composition.py) 
+[How to reverse a string using Iterator in Python?](https://github.com/jprsurendra/core_python/blob/main/oops/iteration.py) 
 
 
 
