@@ -98,7 +98,11 @@ Sample output of above program.
 
 ## Aggregation and Composition in Python
 
-[Example of Aggregation and Composition](https://github.com/jprsurendra/core_python/blob/main/oops/singleton.py) 
+Aggregation is a week form of composition. If you delete the container object contents objects can live without container object.
+
+In composition one of the classes is composed of one or more instance of other classes. In other words one class is container and other class is content and if you delete the container object then all of its contents objects are also deleted.
+
+[Example of Aggregation and Composition](https://github.com/jprsurendra/core_python/blob/main/oops/aggregation_and_composition.py) 
 
  
 
