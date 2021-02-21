@@ -1,4 +1,4 @@
-# Understanding classes and objects/instances
+# Understanding about classes and objects/instances
 
 In object-oriented terminology, a class is a template for defining objects. It may contains some variables that can exist in an object, as well as "methods"--procedures for operating on those variables. 
 
@@ -28,6 +28,7 @@ Well, the `__str__` function is supposed to return a human-readable format, whic
 ## What’s the difference between `__new__` and `__init__`?
 
 Use `__new__` when you need to control the creation of a new instance. Use `__init__` when you need to control initialization of a new instance.
+
 [Example](https://github.com/jprsurendra/core_python/blob/main/oops/new_and_init_in_class.py) 
 
 
