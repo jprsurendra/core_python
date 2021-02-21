@@ -107,7 +107,16 @@ In composition one of the classes is composed of one or more instance of other c
 [Example of Aggregation and Composition](https://github.com/jprsurendra/core_python/blob/main/oops/aggregation_and_composition.py) 
 
  
+## Iteration Overloading Methods in Python
 
+The `__iter__` returns the iterator object and is implicitly called at the start of loops.
+
+The `__next__` method returns the next value and is implicitly called at each loop increment.
+
+`__next__` raises a StopIteration exception when there are no more value to return,
+which is implicitly captured by looping constructs to stop iterating.
+
+[Example of Aggregation and Composition](https://github.com/jprsurendra/core_python/blob/main/oops/aggregation_and_composition.py) 
 
 
 
