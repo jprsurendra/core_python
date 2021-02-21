@@ -164,6 +164,8 @@ data encapsulation is one of the fundamentals of OOP (object-oriented programmin
 
 Abstraction is implemented using interface and abstract class while Encapsulation is implemented using private and protected access modifier.
 
+[Example of AbstractClass](https://github.com/jprsurendra/core_python/blob/main/oops/abstract_class.py) 
+
 ## Polymorphism in Python
 
 Polymorphism allows us to define methods in the child class with the same name as defined in their parent class.
