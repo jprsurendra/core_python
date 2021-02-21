@@ -34,10 +34,22 @@ Use `__new__` when you need to control the creation of a new instance. Use `__in
 [Example of singleton class](https://github.com/jprsurendra/core_python/blob/main/oops/singleton.py) 
  
 
+## What does built-in class attribute `__dict__` do in Python?
 
+`__dict__` gives a dictionary view of the object. I.e. it is an object of 'dict' type that contains the object's attributes.
 
+You could do something fancier in Class.`__str__()` (or the `__unicode__()`) method:
+```python
+    def __str__(self):
+        retstr = ''
+        for k,v in self.__dict__.iteritems():
+            retstr += '%s: %s\n' % (k, v)
+        return retstr
+```
 
+## some other special methods `__getattr__`, `__getattribute__`, `__setattr__` and `__delattr__`
 
+These methods over-ride the default attribute/method handling … so your classes can behave as if instances dynamically have or lack attributes in just about any way you like. 
 
 
 
