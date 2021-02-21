@@ -125,6 +125,8 @@ which is implicitly captured by looping constructs to stop iterating.
     * Inheritance
     * Polymorphism 
 Lets try to understand...
+
+
 ## Encapsulation in Python
 
 The wrapping up of data and functions into a single unit (called class) is known as encapsulation. Data encapsulation is the most striking feature of a class. The data is not accessible to the outside world, and only those functions, which are wrapped in the class, can access it. These functions provide the interface between the object’s data and the program. This insulation of the data from direct access by the program is called data hiding or information hiding.
@@ -143,6 +145,23 @@ The wrapping up of data and functions into a single unit (called class) is known
     print(pobj.get_name())
     # print(pobj.__name) # Error: AttributeError: 'Encapsulation' object has no attribute '__name'
 ```
+
+## What is the difference between abstraction and encapsulation in Python?
+Data abstraction refers to providing only essential information about the data to the outside world, hiding the background details or implementation.
+
+where as
+
+data encapsulation is one of the fundamentals of OOP (object-oriented programming). It refers to the bundling of data with the methods that operate on that data. Encapsulation is used to hide the values or state of a structured data object inside a class, preventing unauthorized parties' direct access to them.
+
+Abstraction is implemented using interface and abstract class while Encapsulation is implemented using private and protected access modifier.
+
+## Polymorphism in Python
+
+Polymorphism allows us to define methods in the child class with the same name as defined in their parent class.
+
+[Example of Polymorphism](https://github.com/jprsurendra/core_python/blob/main/oops/iteration.py) 
+
+
 ## Contribute
 
 Please feel free to create pull requests and issues!
