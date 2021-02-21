@@ -47,12 +47,30 @@ You could do something fancier in Class's `__str__()` (or the `__unicode__()`) m
         return retstr
 ```
 
-## some other special methods `__getattr__`, `__getattribute__`, `__setattr__` and `__delattr__`
+## Some other special methods `__getattr__`, `__getattribute__`, `__setattr__` and `__delattr__`
 
 These methods over-ride the default attribute/method handling … so your classes can behave as if instances dynamically have or lack attributes in just about any way you like. 
 
+The setattr used to sets the named attribute on the given object with a specified value.
 
-
+```python
+    class Employee:
+        pass 
+     
+    emp1 = Employee()
+    setattr(emp1, 'Salary', 12000)
+     
+    emp2 = Employee()
+    setattr(emp2, 'Age', 25)
+     
+    print(emp1.Salary)
+    print(emp2.Age)
+```
+Sample output of above program.
+```
+    12000
+    25
+```
 
 
 
