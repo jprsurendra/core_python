@@ -44,6 +44,17 @@ Use `__new__` when you need to control the creation of a new instance. Use `__in
 
 [Example of LimitedInstances](https://github.com/jprsurendra/core_python/blob/main/oops/limited_instances.py) 
  
+## What’s the `__call__`?
+
+Before getting into application of `__call__()` we need to understand what a callable object is.
+A callable object is one which can be called like a function.
+
+In Python, `__call__()` is used to resolve the code associated with a callable object. Any object can be converted to a callable object just by writing it in a function call format. An object of that kind invokes the `__call__()` method and executes the code associated with it. This doesn’t make the object not to work like a normal one. The object can be used as a normal is used.
+
+One thing to keep in mind is the object is itself used as a function, so syntax should be right.
+
+[Example of `__call__`](https://github.com/jprsurendra/core_python/blob/main/oops/callable_object.py) 
+ 
 
 ## What does built-in class attribute `__dict__` do in Python?
 
