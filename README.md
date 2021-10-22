@@ -194,7 +194,16 @@ Inheritance is the capability of one class to derive or inherit the properties f
 Python supports Single, Multiple and Multi-level Inheritance.
 [Example of Inheritence](https://github.com/jprsurendra/core_python/blob/main/oops/inheritence.py) 
 
+## Sorting List of python objects
+
+When you try to sort the list of Student's object, At a minimum, you should specify `__eq__` and `__lt__` operations. 
+       Then just use sorted(<<list_of_objects>>) or <<list_of_objects>>.sort()
+       Otherwise Exception will occur:         
+ 
+    TypeError: '<' not supported between instances of 'Student' and 'Student'  
+ 
+[Example](https://github.com/jprsurendra/core_python/blob/main/core/sorting/main.py) 
 
 ## Contribute
 
-Please feel free to create pull requests and issues!
+Please feel free to create pull requests and issues! email: surendrarathore.s@gmail.com
