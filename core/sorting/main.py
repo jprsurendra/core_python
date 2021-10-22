@@ -53,11 +53,11 @@ class Student:
 if __name__ == "__main__":
     print("Executed when invoked directly")
     lst= []
-    lst.append(Student("AAAA", 10))
-    lst.append(Student("AAAA", 11))
-    lst.append(Student("AAAA", 8))
-    lst.append(Student("AAAA", 6))
-    lst.append(Student("AAAA", 25))
+    lst.append(Student("Rohit", 10))
+    lst.append(Student("Surendra", 11))
+    lst.append(Student("Manish", 8))
+    lst.append(Student("Pooja", 6))
+    lst.append(Student("Bhuwan", 25))
     print(lst)
 
     lst2 = sorted(lst)
