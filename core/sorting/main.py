@@ -63,7 +63,18 @@ if __name__ == "__main__":
     lst2 = sorted(lst)
     print(lst2)
 
-    lst3= lst.sort()
-    print(lst3)
+    lst.sort()
+    print(lst)
 else:
     print("Executed when imported")
+
+
+
+'''
+Output:
+    Always executed
+    Executed when invoked directly
+    [Student<<-5241922802715972405>>(name:AAAA, age:10), Student<<-3132639429598342108>>(name:AAAA, age:11), Student<<-6856489529845274464>>(name:AAAA, age:8), Student<<-4072698873990208395>>(name:AAAA, age:6), Student<<6374970296428362712>>(name:AAAA, age:25)]
+    [Student<<-4072698873990208395>>(name:AAAA, age:6), Student<<-6856489529845274464>>(name:AAAA, age:8), Student<<-5241922802715972405>>(name:AAAA, age:10), Student<<-3132639429598342108>>(name:AAAA, age:11), Student<<6374970296428362712>>(name:AAAA, age:25)]
+    None
+'''
