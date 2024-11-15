@@ -1,15 +1,15 @@
 
 import datetime as dt
-from datetime import datetime
+from datetime import datetime as dt2
 
 if __name__ == "__main__":
     # Now you can directly use the `datetime` class
-    current_time = datetime.now()
+    current_time = dt2.now()
     print(current_time)  # Output: 2024-11-15 13:59:11.298839
     current_time = dt.datetime.now()
     print(current_time)  # Output: 2024-11-15 13:59:11.298854
 
-# Output: 2024-11-15 13:57:57.842326
+# Output: 2024-11-15 13:59:11.298854
 
 
 '''
