@@ -93,7 +93,7 @@ class RecommendationEngine:
 
         return available_units, total_unit_utilized, combination
 
-    def adjust_in_fcl_containers(self, available_units, total_unit_utilized, combination, container, container_qty=None):
+    def adjust_in_fcl_containers(self, available_units, total_unit_utilized, combination, recommendations, container, container_qty=None):
         unit_utilized = 0
         if available_units > 0:
             if container_qty == None: # If qty not given then you should be calculate it.
@@ -112,6 +112,9 @@ class RecommendationEngine:
                 combination.append({'container':container["label"],'quantity': container_qty, 'unit_utilized': unit_utilized, 'volume_utilized': t_volume})
                 available_units -= unit_utilized
 
+            # Try to fit rest units in LCL
+            available_units, total_unit_utilized, combination = self.adjust_in_lcl_container(available_units, total_unit_utilized, combination, recommendations, auto_append_recommendation=True)
+
         return available_units, total_unit_utilized, combination, unit_utilized
 
     def adjust_in_both_containers(self, containers, available_units, total_unit_utilized, combination, recommendations, allow_fill_partially = False):
@@ -128,9 +131,7 @@ class RecommendationEngine:
                 container = containers[0]   # Current Container to fill
 
                 # get no of containers completely full
-                available_units, total_unit_utilized, combination, unit_utilized = self.adjust_in_fcl_containers(available_units, total_unit_utilized, combination, container)
-                # Try to fit rest units in LCL
-                available_units, total_unit_utilized, combination = self.adjust_in_lcl_container(available_units, total_unit_utilized, combination, recommendations, auto_append_recommendation=True)
+                available_units, total_unit_utilized, combination, unit_utilized = self.adjust_in_fcl_containers(available_units, total_unit_utilized, combination, recommendations, container)
 
 
             # Try to fill in other Containers, before fill current container partially
@@ -144,15 +145,10 @@ class RecommendationEngine:
                             self.adjust_in_both_containers([_container], available_units, total_unit_utilized, combination=combination[:], recommendations=recommendations)
 
                 # Try to fit rest units in same type of FCL, it will fill partially
-                available_units, total_unit_utilized, combination, unit_utilized = self.adjust_in_fcl_containers(available_units, total_unit_utilized, combination, container, container_qty = 1)
-                # Try to fit rest units in LCL
-                available_units, total_unit_utilized, combination = self.adjust_in_lcl_container(available_units, total_unit_utilized, combination, recommendations, auto_append_recommendation=True)
+                available_units, total_unit_utilized, combination, unit_utilized = self.adjust_in_fcl_containers(available_units, total_unit_utilized, combination, recommendations, container, container_qty = 1)
 
             if total_unit_utilized == self.units:
                 recommendations.append(combination)
-            # elif containers:
-            #     for _containers in list(permutations(containers)):
-            #         self.adjust_in_fcl_containers(_containers, available_units, total_unit_utilized, combination = combination[:], recommendations=recommendations)
 
     def remove_duplicates(self, recommendations):
         # Use a set to store unique, hashable versions of the sub-lists
@@ -199,6 +195,7 @@ if __name__ == '__main__':
 
     # engine = RecommendationEngine(units=4, length=590, width=235, height=239, weight=2000, dimension_unit='CM')
     engine = RecommendationEngine(units=5, length=590, width=235, height=239, weight=2000, dimension_unit='CM')
+
     recommendations = engine.collect_recommendation()
     print("recommendations: ", recommendations)
     for recommendation in recommendations:
