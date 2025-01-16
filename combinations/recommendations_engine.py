@@ -40,8 +40,10 @@ class RecommendationEngine:
             for container_info in _fcl_containers:
                 container = self.filter_on_dimension(container_info) # This method also add maximum units which can adjust in it
                 if container:
-                    container['max_units_capacity'] = min(int(container['volume'] // self.volume_per_unit), int(container['weight'] // self.weight_per_unit))
-                    self.all_fcl_containers.append(container)
+                    max_units_capacity = min(int(container['volume'] // self.volume_per_unit), int(container['weight'] // self.weight_per_unit))
+                    if max_units_capacity>0:
+                        container['max_units_capacity'] = max_units_capacity
+                        self.all_fcl_containers.append(container)
 
         t_volume = self.volume_per_unit * self.units
         print("__init__: dimensions: ", self.dimensions, ", units: ", self.units, ", volume_per_unit: ", self.volume_per_unit, ", weight_per_unit: ", self.weight_per_unit, "t_volume: ", t_volume)
