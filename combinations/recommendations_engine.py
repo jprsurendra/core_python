@@ -138,9 +138,7 @@ class RecommendationEngine:
             if available_units > 0:
                 if len(containers)>1:
                     for _container in self.all_fcl_containers:
-                        if _container.get('label') == container.get('label'):
-                            pass # we will fill same container partially leter
-                        else:
+                        if _container.get('label') != container.get('label'): # we will fill same container partially later
                             # Try to fill rest units in other containers
                             self.adjust_in_both_containers([_container], available_units, total_unit_utilized, combination=combination[:], recommendations=recommendations)
 
@@ -174,7 +172,6 @@ class RecommendationEngine:
 
         elif self.all_fcl_containers and available_units > 0:
             for i in range(len(self.all_fcl_containers)):
-                # containers = self.all_fcl_containers[i:] + self.all_fcl_containers[:i]
                 self.adjust_in_both_containers(containers=self.all_fcl_containers[i:], available_units= self.units, total_unit_utilized=0, combination=[], recommendations=recommendations)
 
         if recommendations:
