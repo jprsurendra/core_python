@@ -42,12 +42,14 @@ class RecommendationEngine:
 
         # If CBM or weight is out of the range then direct no recommendation
         if self.volume_per_unit <= 76 and self.weight_per_unit <= 28200:
-            for container_info in _fcl_containers:
+            for idx, container_info in enumerate(_fcl_containers):
                 container = self.filter_on_dimension(container_info) # This method also add maximum units which can adjust in it
                 if container:
                     max_units_capacity = min(int(container['volume'] // self.volume_per_unit), int(container['weight'] // self.weight_per_unit))
                     if max_units_capacity>0:
                         container['max_units_capacity'] = max_units_capacity
+                        # if self.volume_per_unit >= container['min_volume'] and self.volume_per_unit <= container['volume']:
+                        #     self.all_fcl_containers.append(container)
                         self.all_fcl_containers.append(container)
 
         t_volume = self.volume_per_unit * self.units
@@ -78,24 +80,27 @@ class RecommendationEngine:
             t_volume = available_units * self.volume_per_unit
             t_weight = available_units * self.weight_per_unit
             if t_volume > 0 and t_volume < self.MAX_CBM_LCL and t_weight <= self.lcl_container['weight']:
-                lcl_container = {"container": self.lcl_container, 'label':self.lcl_container['label'] , "unit_utilized": available_units, "quantity": 1}
+                lcl_container = {"container": self.lcl_container, 'label':self.lcl_container['label'] , "unit_utilized": available_units, "quantity": 1, 'volume_utilized':self.volume_per_unit * available_units, 'combination_type': 'Idealistic'}
 
                 if False: # auto_append_recommendation and t_volume < self.MIN_THRESHOLD:
                     # As this in LCL all units are consumed and not required further available units, total_unit_utilized, So removed them.
                     combination_copy = combination[:]
-                    combination_copy.append({'container':lcl_container["label"],'quantity': lcl_container["quantity"], 'unit_utilized':lcl_container["unit_utilized"]})
+                    combination_copy.append({'container':lcl_container["label"],'quantity': lcl_container["quantity"], 'unit_utilized':lcl_container["unit_utilized"], 'volume_utilized': lcl_container["volume_utilized"], 'combination_type': lcl_container["combination_type"]})
                     recommendations.append(combination_copy)
 
                 else:
                     total_unit_utilized += lcl_container['unit_utilized']
                     available_units -= lcl_container["unit_utilized"]
-                    combination.append({'container':lcl_container["label"],'quantity': lcl_container["quantity"], 'unit_utilized':lcl_container["unit_utilized"]})
+                    combination.append({'container':lcl_container["label"],'quantity': lcl_container["quantity"], 'unit_utilized':lcl_container["unit_utilized"], 'volume_utilized': lcl_container["volume_utilized"], 'combination_type': lcl_container["combination_type"]})
 
         return available_units, total_unit_utilized, combination
 
     def adjust_in_fcl_containers(self, available_units, total_unit_utilized, combination, recommendations, container, container_qty=None):
         unit_utilized = 0
         if available_units > 0:
+            # if container['min_volume']:
+            #     pass
+
             if container_qty == None: # If qty not given then you should be calculate it.
                 # get no of containers completely full
                 container_qty = int(available_units // container['max_units_capacity'])
@@ -109,7 +114,12 @@ class RecommendationEngine:
             if container_qty > 0:
                 total_unit_utilized += unit_utilized
                 t_volume = round(unit_utilized * self.volume_per_unit, 4)
-                combination.append({'container':container["label"],'quantity': container_qty, 'unit_utilized': unit_utilized, 'volume_utilized': t_volume})
+                utilized_volume_per_container = t_volume/container_qty
+                combination_type = "Unrealistic"
+                if utilized_volume_per_container >= container['min_volume'] and utilized_volume_per_container <= container['volume']:
+                    combination_type = "Idealistic"
+
+                combination.append({'container':container["label"],'quantity': container_qty, 'unit_utilized': unit_utilized, 'volume_utilized': t_volume, 'combination_type': combination_type})
                 available_units -= unit_utilized
 
             # Try to fit rest units in LCL
@@ -191,7 +201,9 @@ if __name__ == '__main__':
     # engine = RecommendationEngine(units=4, length=510, width=234, height=235, weight=2000, dimension_unit='CM')
 
     # engine = RecommendationEngine(units=4, length=590, width=235, height=239, weight=2000, dimension_unit='CM')
-    engine = RecommendationEngine(units=5, length=590, width=235, height=239, weight=2000, dimension_unit='CM')
+    # engine = RecommendationEngine(units=5, length=590, width=235, height=239, weight=2000, dimension_unit='CM')
+
+    engine = RecommendationEngine(units=8, length=300, width=200, height=200, weight=2000, dimension_unit='CM')
 
     recommendations = engine.collect_recommendation()
     print("recommendations: ", recommendations)
