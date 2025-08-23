@@ -43,7 +43,7 @@ a = np.array([1, 2, 3])
     3D array: Like a Rubik’s cube (shelves with rows and columns). '''
 
 np.array([[1,2,3], [4,5,6]])
-
+print("---------------------------------------------------")
 '''
     Think: Rows = horizontal shelves, Columns = vertical stacks.
     Memory trick: "Shape tells you the layout."
@@ -54,7 +54,7 @@ lst = [1,2,3]
 lst2 = [x+10 for x in lst]
 print("lst: ", lst)
 print("lst2: ", lst2)
-
+print("---------------------------------------------------")
 '''
     NumPy: '''
 
@@ -62,7 +62,7 @@ a = np.array([1,2,3])
 print("a: ", a)
 b = a + 10  # हर element में 10 add होगा
 print("b: ", b)
-
+print("---------------------------------------------------")
 '''
     Analogy:
     Instead of adding 10 to each apple manually, NumPy uses a machine gun of math—adds to all at once.
@@ -73,23 +73,102 @@ print("b: ", b)
     
 6. Indexing & Slicing in NumPy (Detailed)
     What is Indexing?
-    Indexing means picking a specific element from an array using its position.    
-    Just like you have a row of lockers and each locker has a number tag (index).    
-    In NumPy, indexing always starts at 0 (like Python lists).
-
-    1D Array Indexing: '''
+        Indexing means picking a specific element from an array using its position.    
+        Just like you have a row of lockers and each locker has a number tag (index).    
+        In NumPy, indexing always starts at 0 (like Python lists).
+    
+        1D Array Indexing: '''
 
 arr = np.array([10, 20, 30, 40, 50])
 print("first element:  arr[0] = ", arr[0])  # 10 (first element)
 print("fourth element: arr[3] = ", arr[3])   # 40 (fourth element)
-
+print("---------------------------------------------------")
 '''
-    Think: arr[3] means "locker number 3", starting from 0.
-    If you use negative index, you count from the back '''
+        Think: arr[3] means "locker number 3", starting from 0.
+        If you use negative index, you count from the back '''
 print("last element:   arr[-1] = ", arr[-1])  # 50 (last element)
 print("second last:    arr[-2] = ", arr[-2])  # 40 (second last)
-
+print("---------------------------------------------------")
 '''  
+        Memory Hook:
+        Negative index = back door entry.
+    
+        2D Array Indexing (Rows & Columns)
+        Think of rows = horizontal shelves, columns = vertical stacks. '''
+
+arr = np.array([[1,2,3],
+                [4,5,6],
+                [7,8,9]])
+print("row 0, column 1:                   arr[0, 1] => ", arr[0, 1])  # 2 (row 0, column 1)
+print("row 2, column 2:                   arr[2, 2] => ", arr[2, 2])  # 9 (row 2, column 2)
+print("Full row: (row 1, all columns):    arr[1, :] ==>", arr[1, :])  # [4 5 6] (row 1, all columns)
+print("Full column: (all rows, column 0): arr[:, 0] ==>", arr[:, 0])  # [1 4 7] (all rows, column 0)
+print("---------------------------------------------------")
+
+'''                
+        Memory Hook:
+            First index = row (horizontal), Second index = column (vertical).
+            
+            
+
+    What is Slicing?
+        Slicing means picking a range (सीमा) of elements.
+        Syntax:
+            arr[start:end:step]
+            start → where to begin (included)
+            end → where to stop (excluded)            
+            step → gap between elements (optional)            
+            Example: '''
+
+arr = np.array([10,20,30,40,50])
+print( "arr = np.array([10,20,30,40,50])")
+print("from index 1 to 3:       arr[1:4] => ", arr[1:4])    # [20 30 40]  (from index 1 to 3)
+print("start omitted (from 0):  arr[:3]  => ", arr[:3])     # [10 20 30]  (start omitted → from 0)
+print("end omitted (till last): arr[2:]  => ", arr[2:])     # [30 40 50]  (end omitted → till last)
+print("step=2 (pick alternate): arr[::2] => ", arr[::2])    # [10 30 50]  (step=2 → pick alternate)
+print("---------------------------------------------------")
+
+'''     
+            Memory Hook:
+            ": colon" means "all values along that direction."
+
+        2D Slicing
+            You can slice both rows and columns: 
+            In a 2D array (matrix), you have rows (horizontal shelves) and columns (vertical stacks).
+            With slicing, you can select a specific region (sub-matrix) of that table. 
+            Syntax: array[row_start:row_end, column_start:column_end]
+                row_start:row_end → Which rows to pick (row_end excluded)
+                column_start:column_end → Which columns to pick (column_end excluded)
+                Colon : means “all along that axis”
+            '''
+arr = np.array([[ 1,  2,  3,  4],
+                [ 5,  6,  7,  8],
+                [ 9, 10, 11, 12],
+                [13, 14, 15, 16]])
+print(arr[0:2, 1:3])
+'''
+    # Rows 0 to 1 (0 included, 2 excluded),  
+        [ 1,  2,  3,  4],
+        [ 5,  6,  7,  8],
+    # Columns 1 to 2 (1 included, 3 excluded)
+     1st Col 2nd Col
+         2,    3,
+         6,    7,
+        10,   11,  (3rd row excluded)
+        14,   15,  (4th row excluded)
+    # Out put:
+    [  [2 3]
+       [6 7]  ]
+'''
+print("---------------------------------------------------")
+'''        
+        # Output:
+        # [[2 3]
+        #  [6 7]]
+                
+                            
+            
+                   
     NumPy slicing works like cutting pizza slices:
     
     a[0] → first slice    
