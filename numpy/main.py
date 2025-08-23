@@ -216,5 +216,60 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
                 The first list 1,2 specifies row indices. => Take row 1(2nd) and column(-1) 1(2nd) → arr[1,1]
                 The second list [1,2] specifies column indices. => Take row(+1) 2(3rd) and column 2(3rd) → arr[2,2]  
             Output: [ 6 11]   
+7. Useful NumPy Functions with Analogies
 
+    array = np.zeros((2,3)) # Creates a table with all empty plates (0).
+    print(array)
+    putput:
+    [[0. 0. 0.]
+     [0. 0. 0.]]
+     
+    array = np.ones((2,3)) # Creates a table with plates full of one apple each.
+    print(array)
+    putput:
+        [[1. 1. 1.]
+         [1. 1. 1.]]
+  
+    array = np.arange(0,10,2) # Like numbering lockers from 0 to 10, skipping by 2.
+    print(array)
+    putput:
+        [0 2 4 6 8]
+    
+    array = np.linspace(0,1,5) # Like splitting a rope evenly into 5 parts between 0 and 1.
+    print(array)
+    putput:
+        [0.   0.25   0.5    0.75   1.  ]
+        np.linspace(0,2,5) ==>  [0.  0.5   1.   1.5    2. ]
+        np.linspace(0,100,10) ==> [  0.          11.11111111  22.22222222  33.33333333  44.44444444
+                                    55.55555556  66.66666667  77.77777778  88.88888889  100.        ]
+   
+    Memory Hook:    
+        arange → "arranged with step"
+        linspace → "linear space evenly divided"
+
+8. Statistics & Aggregations
+    np.sum(a) → Count total apples.  
+        a = np.array([1, 2, 3])
+        b = np.sum(a) #output: 6
+        
+        a1 = np.array([[1, 2, 3],
+                       [4, 5, 6]])
+        b1 = np.sum(a1) #output: 21
+ 
+    np.mean(a) → Average apples per box.  
+        a = np.array([1, 2, 3])
+        b = np.mean(a) #output: 6/3 => 2.0
+        
+        a1 = np.array([[1, 2, 3],
+                       [4, 5, 6]])
+        b1 = np.mean(a1) #output: 21/6 => 3.5
+ 
+    np.max(a) → Biggest apple pile.
+
+        a = np.array([1, 2, 3])
+        b = np.max(a) #output: 3 
+        a1 = np.array([[1, 2, 3],
+                       [4, 5, 6]]) 
 '''
+
+
