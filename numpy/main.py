@@ -165,10 +165,59 @@ print("---------------------------------------------------")
         # Output:
         # [[2 3]
         #  [6 7]]
-                
-                            
-            
-                   
+'''
+print("take all rows, columns 1 & 2: arr[:, 1:3]=> ", arr[:, 1:3])
+'''
+Output: [    [ 2  3]
+             [ 6  7]
+             [10 11]
+             [14 15]   ]
+'''
+print("take rows 1 & 2, all columns: arr[1:3, :]=> ", arr[1:3, :])
+'''
+Output: [[ 5  6  7  8]
+         [ 9 10 11 12] ]                            
+'''
+print("take Picks rows 0(1st) & 2(3rd) fully (all columns): arr[[0,2], :]=> ", arr[[0,2], :])
+'''
+Output: [[ 1  2  3  4]
+         [ 9 10 11 12]]
+                     
+         Skipping with Step Size
+         Syntax with step: arr[row_start:row_end:row_step, col_start:col_end:col_step]
+'''
+print("Take every 2nd row and every 2nd column: arr[::2, ::2]=> ", arr[::2, ::2])
+'''        
+Output: [[ 1  3]
+         [ 9 11]]  
+         Negative Index Slicing
+            You can count from the end using negative indices:
+'''
+print("Take Last 2 rows and Last 2 columns: arr[-2:, -2:]=> ", arr[-2:, -2:])
+'''        
+Output: [[11 12]
+         [15 16]]   
+               
+        Selecting Non-Contiguous Columns or Rows (Fancy Slicing)    
+        arr[[0,2], [1,3]]  # picks (0,1) and (2,3)
+'''
+print("Fancy Slicing: arr[[0,2], [1,3]]=> ", arr[[0,2], [1,3]])
+'''   
+    The first list [0,2] specifies row indices. => Take row 0(1st) and column(-1) 1(2nd) → arr[0,1]
+    The second list [1,3] specifies column indices. => Take row(+1) 2(3rd) and column 3(4th) → arr[2,3] 
+Output: [ 2 12]  
+'''
+print("Fancy Slicing: arr[[1,2], [1,2]]=> ", arr[[1,2], [1,2]])
+'''        
+    The first list 1,2 specifies row indices. => Take row 1(2nd) and column(-1) 1(2nd) → arr[1,1]
+    The second list [1,2] specifies column indices. => Take row(+1) 2(3rd) and column 2(3rd) → arr[2,2]  
+Output: [ 6 11]   
+        
+arr = np.array([[ 1,  2,  3,  4],
+                [ 5,  6,  7,  8],
+                [ 9, 10, 11, 12],
+                [13, 14, 15, 16]])        
+               
     NumPy slicing works like cutting pizza slices:
     
     a[0] → first slice    
