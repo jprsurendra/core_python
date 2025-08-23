@@ -3,6 +3,7 @@ import numpy as np
 '''
 Me: Act as a study Coach. Teach me numpy in python using real-life analogies and memory trick. So I never forget it again.
 ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll never forget it. We’ll use real-life analogies, memory hooks, and storytelling.
+
 0. Install NumPy:
     pip install --upgrade pip
     pip install numpy
@@ -216,5 +217,33 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
                 The second list [1,2] specifies column indices. => Take row(+1) 2(3rd) and column 2(3rd) → arr[2,2]  
             Output: [ 6 11]   
 
+
+Real life example of Numpy
+Scenario 1: You are analyzing sales data for a retail chain.
+    The company has 5 stores.
+    Each store reports monthly sales for 12 months.
+    You want to:
+        1. Find total and average sales per store.
+        2. Identify the best and worst performing month for each store.
+        3. Flag months where sales were below 50% of the store’s average (to trigger marketing efforts).
+        4. Normalize sales (scale values between 0 and 1) for comparison across stores.
+
+
 '''
-    
+
+# Step 1: Create the Data
+# Simulated sales data: 5 stores (rows), 12 months (columns)
+np.random.seed(42)  # for reproducibility
+sales = np.random.randint(20000, 100000, (5, 12))
+
+print("Sales Data (Rows=Stores, Cols=Months):")
+print(sales)
+'''
+                    Jan   Feb   March April May   June  July  Aug   Sep   Oct   Nov   Dec
+Store-A's Sales:   [35795 20860 96820 74886 26265 57194 64131 80263 36023 61090 87221 84820]
+Store-B's Sales:   [20769 79735 82955 84925 87969 25311 73707 48693 91932 45658 38431 22747]
+Store-C's Sales:   [79150 85725 55773 87435 76886 86803 51551 31394 89092 23890 61606 30627]
+Store-D's Sales:   [28792 93969 63001 96552 43897 88148 43483 68555 37159 55920 87121 89479]
+Store-E's Sales:   [39457 86557 97189 98953 72995 60757 29692 65758 92409 91211 85697 57065]
+ 
+'''
