@@ -22,13 +22,13 @@ a = np.array([1, 2, 3])
 '''     
     Analogy:
         Think of np.array() as packing apples into a box.
-        
+
         [1,2,3] is a loose bunch of apples.
-        
+
         np.array() packs them into a box with structure.
-        
+
         Memory Hook:
-        
+
         array() = Arrange into an array (sounds like "array" → "arrange").     
 
 4. Shapes & Dimensions
@@ -45,7 +45,5 @@ a = np.array([1, 2, 3])
 
 '''
 
-
-
-    # Creating Arrays
+# Creating Arrays
 
