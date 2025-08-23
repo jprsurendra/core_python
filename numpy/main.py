@@ -270,6 +270,50 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
         b = np.max(a) #output: 3 
         a1 = np.array([[1, 2, 3],
                        [4, 5, 6]]) 
+                       
+9. NumPy Axis Concept (NumPy Axes Trick)
+    When confused about axis, use the table analogy:    
+    Axis 0 → down the rows (like summing each column). → Vertical (down) → 0 like a vertical stick. 
+           → Operation works vertically down the rows (columns wise).   
+    Axis 1 → across the columns (like summing each row). → Horizontal (across) → 1 like a horizontal dash.
+           → Operation works horizontally across columns (rows wise). 
+    _____________________________________________________________________________________________________________________________
+                                Each Store's Sales data (In Rs) Month wise
+    ------------------------------------------------------------------------------------------------------------------------------
+                   || Jan    | Feb    | March  | April  | May    | June   | July   | Aug   | Sept    | Oct    | Nov    | Dec    ||  Total of all months sales        Avg Sales
+    ------------------------------------------------------------------------------------------------------------------------------
+    Store-A ->     ||  35795 |  20860 |  96820 |  74886 |  26265 |  57194 |  64131 |  80263 |  36023 |  61090 |  87221 |  84820 ||           725368             | 60447.33333333   |   |
+    Store-B ->     ||  20769 |  79735 |  82955 |  84925 |  87969 |  25311 |  73707 |  48693 |  91932 |  45658 |  38431 |  22747 ||           702832             | 58569.33333333   |   |
+    Store-C ->     ||  79150 |  85725 |  55773 |  87435 |  76886 |  86803 |  51551 |  31394 |  89092 |  23890 |  61606 |  30627 ||           759932             | 63327.66666667   |   |
+    Store-D ->     ||  28792 |  93969 |  63001 |  96552 |  43897 |  88148 |  43483 |  68555 |  37159 |  55920 |  87121 |  89479 ||           796076             | 66339.66666667   |   |
+    Store-E ->     ||  39457 |  86557 |  97189 |  98953 |  72995 |  60757 |  29692 |  65758 |  92409 |  91211 |  85697 |  57065 ||           877740             | 73145.0          |   |
+    ------------------------------------------------------------------------------------------------------------------------------
+    Company Total  || 203963 | 366846 | 395738 | 442751 | 308012 | 318213 | 262564 | 294663 | 346615 | 277769 | 360076 | 284738 ||
+    ______________________________________________________________________________________________________________________________
+    Here: Rows → Stores   and  Columns → Months
+
+    sales = np.array([ [35795, 20860, 96820, 74886, 26265, 57194, 64131, 80263, 36023, 61090, 87221, 84820],
+                       [20769, 79735, 82955, 84925, 87969, 25311, 73707, 48693, 91932, 45658, 38431, 22747],
+                       [79150, 85725, 55773, 87435, 76886, 86803, 51551, 31394, 89092, 23890, 61606, 30627],
+                       [28792, 93969, 63001, 96552, 43897, 88148, 43483, 68555, 37159, 55920, 87121, 89479],
+                       [39457, 86557, 97189, 98953, 72995, 60757, 29692, 65758, 92409, 91211, 85697, 57065] ])
+    # Calculate store-wise total sales (sum of all months for each store)
+    store_totals = sales.sum(axis=1)  # # Sum row-wise => [725368 702832 759932 796076 877740]
+    store_avg = sales.mean(axis=1)  # [60447.33333333 58569.33333333 63327.66666667 66339.66666667  73145. ]
+     
+    Here:
+        axis=1 → works across columns (months).
+        Each row (store) is summed individually.
+     
+    month_totals = sales.sum(axis=0)  # Sum column-wise =>[203963 366846 395738 442751 308012 318213 262564 294663 346615 277769  360076 284738]
+     
+    This will:
+        Take all store sales for Jan and sum them.
+        Then take all store sales for Feb and sum them.
+        …and so on till Dec.
+    
+    Result shape: (203963, 366846, 395738, 442751, 308012, 318213, 262564, 294663, 346615, 277769,  360076, 284738) → one value per month.
+
+
+
 '''
-
-
