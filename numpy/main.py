@@ -10,12 +10,17 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
     
 1. What is NumPy?
     Imagine you’re running a warehouse. You store lots of similar items (like boxes of apples).
-
     If you store them randomly on shelves, you’ll waste time searching and counting (like normal Python lists).
-
     But if you store them in a neat grid (like in a well-arranged warehouse), you can quickly count, move, and process them.
-
     This well-arranged warehouse = NumPy array (ndarray).
+    
+    Q. What is NumPy?
+        NumPy (Numerical Python) = A library for fast mathematical computation on arrays/matrices.
+        Think of it as "Excel on steroids" – works with huge data faster than Python lists.
+        
+    Q Why is it fast?
+        Internally uses C language, optimized memory layout.
+        Supports vectorized operations (no slow loops).
 
 2. Why NumPy? (Compared to Lists)
     Normal lists are like a messy shopping cart—you check each item one by one.
@@ -23,19 +28,51 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
     NumPy arrays are like a conveyor belt in an Amazon warehouse—organized, super-fast, and can handle bulk operations at once.
 
 3. Creating Arrays  
+    Core Object: ndarray (NumPy Array)
+    
+    arr_1d = np.array([1, 2, 3])                          # 1D Array: Like a list.
+    arr_2d = np.array([ [1, 2, 3], 
+                        [4, 5, 6], 
+                        [7, 8, 9]  ])  #2D Array: Like an Excel sheet.
+    # Create a 3D array with 2 "slices" (2D arrays), each with 2 rows and 3 columns
+    arr_3d = np.array([ 
+                        [ [1, 2, 3],    
+                          [4, 5, 6] ],     # First "slices" (2D arrays)
 
-    a = np.array([1, 2, 3])
+                        [ [7, 8, 9],    
+                          [10, 11, 12] ]   # Second "slices" (2D arrays)
+                      ])               # 3D Array: Like a stack of Excel sheets.
    
     Analogy:
         Think of np.array() as packing apples into a box.
-
         [1,2,3] is a loose bunch of apples.
-
         np.array() packs them into a box with structure.
-
+        
         Memory Hook:
+            array() = Arrange into an array (sounds like "array" → "arrange").    
 
-        array() = Arrange into an array (sounds like "array" → "arrange").     
+    Q Check attributes:
+        arr.ndim      # number of dimensions
+        arr.shape     # (rows, cols)
+        arr.size      # total elements
+        arr.dtype     # data type 
+        
+        print("number of dimensions:")
+        print("arr_1d.ndim: ", arr_1d.ndim) # 1
+        print("arr_2d.ndim: ", arr_2d.ndim) # 2
+        print("arr_3d.ndim: ", arr_3d.ndim) # 3
+        print("(rows, cols):")
+        print("arr_1d.shape: ", arr_1d.shape) # (3,)
+        print("arr_2d.shape: ", arr_2d.shape) # (3, 3)
+        print("arr_3d.shape: ", arr_3d.shape) # (2, 2, 3)
+        print("total elements:")
+        print("arr_1d.size: ", arr_1d.size) # 3
+        print("arr_2d.size: ", arr_2d.size) # 9
+        print("arr_3d.size: ", arr_3d.size) # 12
+        print("data type:")
+        print("arr_1d.dtype: ", arr_1d.dtype) # int64
+        print("arr_2d.dtype: ", arr_2d.dtype) # int64
+        print("arr_3d.dtype: ", arr_3d.dtype) # int64
 
 4. Shapes & Dimensions
     1D array: Like a single row of lockers.
@@ -246,8 +283,94 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
     Memory Hook:    
         arange → "arranged with step"
         linspace → "linear space evenly divided"
+        
+    Q. Array Creation Methods
+        Memory trick: “ar, ze, fu, ra, li”
+        (think of it as a mantra for array creation)
+    
+        np.array() – manual list/tuple.
+        np.zeros((r,c)) – matrix full of 0s.
+        np.ones((r,c)) – matrix full of 1s.
+        np.full((r,c), value) – filled with custom value.
+        np.arange(start, stop, step) – like Python range.
+        np.linspace(start, stop, n) – equally spaced numbers.
+        np.eye(n) – identity matrix. It creates an identity matrix: 
+                    A square matrix with 1s on the main diagonal (top-left to bottom-right) and 0s everywhere else.
+            I = np.eye(4)
+                [[1. 0. 0. 0.]
+                 [0. 1. 0. 0.]
+                 [0. 0. 1. 0.]
+                 [0. 0. 0. 1.]]
+            Diagonal mask (filtering):
+            matrix = np.array([[5,2,3],
+                       [4,9,1],
+                       [7,6,8]])
+            diag_only = matrix * np.eye(3)
+            print(diag_only)
+                [[5. 0. 0.]
+                 [0. 9. 0.]
+                 [0. 0. 8.]]
+            Extra Trick: np.eye(n, k=shift)
+                You can shift the diagonal:
+                np.eye(4, k=1) # (Diagonal shifted 1 step right)
+                [[0. 1. 0. 0.]
+                 [0. 0. 1. 0.]
+                 [0. 0. 0. 1.]
+                 [0. 0. 0. 0.]]
+     
+            
+        np.random – random numbers:
+            a = np.random.randint(1,100,(3,4)) # 3x4 random int 1-100
+            output:
+                [[48 24 47 41]
+                 [14 44 65 79]
+                 [82 11 93 60]]
+             
+            b = np.random.rand(3,4)            # 0-1 uniform random
+            Output:
+            [[0.10553606 0.21940231 0.45609387 0.77875042]
+             [0.69480337 0.06376717 0.68530417 0.67520827]
+             [0.96443717 0.96372821 0.27185541 0.71918808]]
+            
+8. Key Array Operations
+    Arithmetic: arr + 2, arr1 + arr2, arr1 * arr2
+    Universal Functions (ufuncs):
+    np.sqrt(arr), np.log(arr), np.exp(arr), np.sin(arr)
+    Aggregate: arr.sum(), arr.mean(), arr.min(), arr.max(), arr.std() 
 
-8. Statistics & Aggregations
+    arr = np.array([1,2,3,4])
+    arr1 = arr + 2
+    print(arr1) # [3 4 5 6]
+    arr2 = arr + arr1
+    print(arr2) # [ 4  6  8 10]
+    arr3 = arr * arr1
+    print(arr3) # [ 3  8 15 24]
+     
+    arr = np.array([1,4,9,16])
+    arr1 = np.sqrt(arr)
+    # print(arr1) # [1. 2. 3. 4.]
+    # arr1 = np.log(arr)
+    # np.exp(arr)
+    # np.sin(arr)     
+    
+    Q. Broadcasting (Magic Trick)
+        Broadcasting = automatic expansion of arrays for arithmetic.
+        a = np.array([[1,2,3],
+                  [4,5,6]])
+        b = np.array([10,20,30])
+    
+        c = a + b
+        print(c)
+        putput: 
+            [[11 22 33]
+             [14 25 36]]
+             
+        Here b is broadcasted to match a.
+        Think of short array as paint spreading over the bigger one.
+    Q Reshape – Changing the Shape of Data     
+         
+
+9. Statistics & Aggregations
     np.sum(a) → Count total apples.  
         a = np.array([1, 2, 3])
         b = np.sum(a) #output: 6
@@ -270,8 +393,99 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
         b = np.max(a) #output: 3 
         a1 = np.array([[1, 2, 3],
                        [4, 5, 6]]) 
-                       
-9. NumPy Axis Concept (NumPy Axes Trick)
+
+10. Reshape & Transpose
+    arr.reshape(3,4) – change shape.
+    arr.T – transpose rows ↔ columns. 
+    arr.flatten() – 2D → 1D
+    
+    1. Reshape – Changing the Shape of Data
+        arr.reshape() lets you change the rows & columns of an array without changing the data.
+        
+        arr = np.array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])  # OR => np.arange(12)
+        
+        reshaped = arr.reshape(3, 4)  # 3 rows, 4 columns
+        print(reshaped)
+         
+        [[ 0  1  2  3]
+         [ 4  5  6  7]
+         [ 8  9 10 11]]
+    
+        Memory Trick:
+            arr.reshape(R, C) ==> Total elements must match! (RxC = 3×4 = 12)
+
+        arr1 = np.array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12])
+        reshaped1 = arr1.reshape(3, 4)  # 3 rows, 4 columns   => ValueError: cannot reshape array of size 13 into shape (3,4)
+        print(reshaped1)
+        
+        Practical Use Case (Real Life):
+            You receive a flat list of daily sales for 15 days, and you want to organize it week-wise (3 weeks × 5 days):
+            # np.arange(15).reshape(3,5)
+            arr_daily_sales_for_15_days = np.array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14])
+            week_wise_5days_in_a_week_sales = arr_daily_sales_for_12_days.reshape(3, 5)  # 3 rows(weeks), 5 columns(days in a day)
+            # Each row now represents a week’s sales
+            week_wise_5days_in_a_week_sales =>
+                            [[  0       1       2           3         4]
+                             [  5       6        7          8         9]
+                             [ 10      11       12         13        14]]
+            More visual view:
+                               Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+                      week-1   0       1        2          3         4       OFF       OFF
+                      week-2   5       6        7          8         9       OFF       OFF
+                      week-3   10      11       12         13        14      OFF       OFF
+         
+    2. Transpose – Flipping Rows & Columns (पंक्ति और स्तम्भ बदलना) => Transpose swaps rows and columns.     
+        Real-Life Analogy: 
+            Imagine a classroom attendance sheet:
+                Students   Mon	Tue	Wed Thu Fri
+                student-1  P	A	P   P   A
+                student-2  A	P	P   A   P
+            
+            If you transpose it, days become rows and students become columns:
+                Days 	student-1	student-2
+                Mon	    P	        A
+                Tue	    A	        P
+                Wed	    P	        P
+                Thu	    P           A
+                Fri	    A	        P
+        Memory Trick:
+        Think of transpose as rotating the matrix over its diagonal.
+    3. flatten() converts any N-dimensional array into a 1D array.
+        It makes a copy of the data in row-major (C-style) order by default.
+        Think of it as unfolding a folded bedsheet into one straight line.
+        arr = np.array([[1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9]])
+
+        flat = arr.flatten()
+        print(flat)  
+        Output: [1 2 3 4 5 6 7 8 9]
+        
+        arr = np.array([[1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9]])
+                
+11. Stacking & Splitting     
+    Stack:
+        np.hstack([a,b])  # horizontal
+        np.vstack([a,b])  # vertical           
+        h_arr = np.hstack(arr)  # horizontal
+        print(h_arr) #Output: [1 2 3 4 5 6 7 8 9]
+        v_arr = np.vstack(arr)  # vertical
+        Output: No change
+            [[1 2 3]
+             [4 5 6]
+             [7 8 9]]
+        arr = np.array([1, 2, 3, 4 ])
+        v_arr = np.vstack(arr)  # vertical
+        print(v_arr)
+        Output: 
+            [[1]
+             [2]
+             [3]
+             [4]]
+                               
+11. NumPy Axis Concept (NumPy Axes Trick)
     When confused about axis, use the table analogy:    
     Axis 0 → down the rows (like summing each column). → Vertical (down) → 0 like a vertical stick. 
            → Operation works vertically down the rows (columns wise).   
@@ -314,13 +528,18 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
     
     Result shape: (203963, 366846, 395738, 442751, 308012, 318213, 262564, 294663, 346615, 277769,  360076, 284738) → one value per month.
 
-10. Real-Life Use Cases 
+
+
+
+
+
+11. Real-Life Use Cases 
     Finance: Stock price arrays, bulk calculations.
     Images: Photos are just 3D NumPy arrays (height, width, color).
     AI/ML: Every neural network uses NumPy-like arrays internally.
     Logistics: Inventory management (rows = products, columns = warehouses).
 
-11. Super Memory Trick: The Warehouse Story
+12. Super Memory Trick: The Warehouse Story
     Whenever you think of NumPy, visualize a warehouse:
     Arrays = neatly arranged shelves.
     Operations = forklift machines doing work at lightning speed.
@@ -330,101 +549,11 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
     
     
     
-Q1. What is NumPy?
-        NumPy (Numerical Python) = A library for fast mathematical computation on arrays/matrices.
-        Think of it as "Excel on steroids" – works with huge data faster than Python lists.
+  
         
-    Q1.1 Why is it fast?
-        Internally uses C language, optimized memory layout.
-        Supports vectorized operations (no slow loops).  
-        
-Q2. Core Object: ndarray (NumPy Array)
-    arr = np.array([1,2,3,4])
-    1D Array: Like a list.
-    2D Array: Like an Excel sheet.
-    3D Array: Like a stack of Excel sheets.
-    
-    Q2.1 Check attributes:
-        arr.ndim      # number of dimensions
-        arr.shape     # (rows, cols)
-        arr.size      # total elements
-        arr.dtype     # data type
-        
-Q3. Array Creation Methods
-    Memory trick: “ar, ze, fu, ra, li”
-    (think of it as a mantra for array creation)
 
-    np.array() – manual list/tuple.
-    np.zeros((r,c)) – matrix full of 0s.
-    np.ones((r,c)) – matrix full of 1s.
-    np.full((r,c), value) – filled with custom value.
-    np.arange(start, stop, step) – like Python range.
-    np.linspace(start, stop, n) – equally spaced numbers.
-    np.eye(n) – identity matrix. It creates an identity matrix: 
-                A square matrix with 1s on the main diagonal (top-left to bottom-right) and 0s everywhere else.
-        I = np.eye(4)
-            [[1. 0. 0. 0.]
-             [0. 1. 0. 0.]
-             [0. 0. 1. 0.]
-             [0. 0. 0. 1.]]
-        Diagonal mask (filtering):
-        matrix = np.array([[5,2,3],
-                   [4,9,1],
-                   [7,6,8]])
-        diag_only = matrix * np.eye(3)
-        print(diag_only)
-            [[5. 0. 0.]
-             [0. 9. 0.]
-             [0. 0. 8.]]
-        Extra Trick: np.eye(n, k=shift)
-            You can shift the diagonal:
-            np.eye(4, k=1) # (Diagonal shifted 1 step right)
-            [[0. 1. 0. 0.]
-             [0. 0. 1. 0.]
-             [0. 0. 0. 1.]
-             [0. 0. 0. 0.]]
- 
         
-    np.random – random numbers:
-        a = np.random.randint(1,100,(3,4)) # 3x4 random int 1-100
-        output:
-            [[48 24 47 41]
-             [14 44 65 79]
-             [82 11 93 60]]
-         
-        b = np.random.rand(3,4)            # 0-1 uniform random
-        Output:
-        [[0.10553606 0.21940231 0.45609387 0.77875042]
-         [0.69480337 0.06376717 0.68530417 0.67520827]
-         [0.96443717 0.96372821 0.27185541 0.71918808]]
-         
-Q4. Key Array Operations
-    Arithmetic: arr + 2, arr1 + arr2, arr1 * arr2
-    Universal Functions (ufuncs):
-    np.sqrt(arr), np.log(arr), np.exp(arr), np.sin(arr)
-    Aggregate: arr.sum(), arr.mean(), arr.min(), arr.max(), arr.std()
 
  
-
-arr = np.array([1,2,3,4])
-arr1 = arr + 2
-print(arr1) # [3 4 5 6]
-arr2 = arr + arr1
-print(arr2) # [ 4  6  8 10]
-arr3 = arr * arr1
-print(arr3) # [ 3  8 15 24]
- 
-arr = np.array([1,4,9,16])
-arr1 = np.sqrt(arr)
-# print(arr1) # [1. 2. 3. 4.]
-# arr1 = np.log(arr)
-# np.exp(arr)
-# np.sin(arr)
-
-Q7. Reshape & Transpose
-    arr.reshape(3,4) – change shape.
-    arr.T – transpose rows ↔ columns.
-    arr.flatten() – 2D → 1D
 
 '''
-
