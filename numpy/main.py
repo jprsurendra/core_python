@@ -314,6 +314,117 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
     
     Result shape: (203963, 366846, 395738, 442751, 308012, 318213, 262564, 294663, 346615, 277769,  360076, 284738) → one value per month.
 
+10. Real-Life Use Cases 
+    Finance: Stock price arrays, bulk calculations.
+    Images: Photos are just 3D NumPy arrays (height, width, color).
+    AI/ML: Every neural network uses NumPy-like arrays internally.
+    Logistics: Inventory management (rows = products, columns = warehouses).
 
+11. Super Memory Trick: The Warehouse Story
+    Whenever you think of NumPy, visualize a warehouse:
+    Arrays = neatly arranged shelves.
+    Operations = forklift machines doing work at lightning speed.
+    Broadcasting = speaker system sending one message to all workers at once.
+    Axis 0 & 1 = walking vertically vs horizontally across shelves.
+    
+    
+    
+    
+Q1. What is NumPy?
+        NumPy (Numerical Python) = A library for fast mathematical computation on arrays/matrices.
+        Think of it as "Excel on steroids" – works with huge data faster than Python lists.
+        
+    Q1.1 Why is it fast?
+        Internally uses C language, optimized memory layout.
+        Supports vectorized operations (no slow loops).  
+        
+Q2. Core Object: ndarray (NumPy Array)
+    arr = np.array([1,2,3,4])
+    1D Array: Like a list.
+    2D Array: Like an Excel sheet.
+    3D Array: Like a stack of Excel sheets.
+    
+    Q2.1 Check attributes:
+        arr.ndim      # number of dimensions
+        arr.shape     # (rows, cols)
+        arr.size      # total elements
+        arr.dtype     # data type
+        
+Q3. Array Creation Methods
+    Memory trick: “ar, ze, fu, ra, li”
+    (think of it as a mantra for array creation)
+
+    np.array() – manual list/tuple.
+    np.zeros((r,c)) – matrix full of 0s.
+    np.ones((r,c)) – matrix full of 1s.
+    np.full((r,c), value) – filled with custom value.
+    np.arange(start, stop, step) – like Python range.
+    np.linspace(start, stop, n) – equally spaced numbers.
+    np.eye(n) – identity matrix. It creates an identity matrix: 
+                A square matrix with 1s on the main diagonal (top-left to bottom-right) and 0s everywhere else.
+        I = np.eye(4)
+            [[1. 0. 0. 0.]
+             [0. 1. 0. 0.]
+             [0. 0. 1. 0.]
+             [0. 0. 0. 1.]]
+        Diagonal mask (filtering):
+        matrix = np.array([[5,2,3],
+                   [4,9,1],
+                   [7,6,8]])
+        diag_only = matrix * np.eye(3)
+        print(diag_only)
+            [[5. 0. 0.]
+             [0. 9. 0.]
+             [0. 0. 8.]]
+        Extra Trick: np.eye(n, k=shift)
+            You can shift the diagonal:
+            np.eye(4, k=1) # (Diagonal shifted 1 step right)
+            [[0. 1. 0. 0.]
+             [0. 0. 1. 0.]
+             [0. 0. 0. 1.]
+             [0. 0. 0. 0.]]
+ 
+        
+    np.random – random numbers:
+        a = np.random.randint(1,100,(3,4)) # 3x4 random int 1-100
+        output:
+            [[48 24 47 41]
+             [14 44 65 79]
+             [82 11 93 60]]
+         
+        b = np.random.rand(3,4)            # 0-1 uniform random
+        Output:
+        [[0.10553606 0.21940231 0.45609387 0.77875042]
+         [0.69480337 0.06376717 0.68530417 0.67520827]
+         [0.96443717 0.96372821 0.27185541 0.71918808]]
+         
+Q4. Key Array Operations
+    Arithmetic: arr + 2, arr1 + arr2, arr1 * arr2
+    Universal Functions (ufuncs):
+    np.sqrt(arr), np.log(arr), np.exp(arr), np.sin(arr)
+    Aggregate: arr.sum(), arr.mean(), arr.min(), arr.max(), arr.std()
+
+ 
+
+arr = np.array([1,2,3,4])
+arr1 = arr + 2
+print(arr1) # [3 4 5 6]
+arr2 = arr + arr1
+print(arr2) # [ 4  6  8 10]
+arr3 = arr * arr1
+print(arr3) # [ 3  8 15 24]
+ 
+arr = np.array([1,4,9,16])
+arr1 = np.sqrt(arr)
+# print(arr1) # [1. 2. 3. 4.]
+# arr1 = np.log(arr)
+# np.exp(arr)
+# np.sin(arr)
+
+Q7. Reshape & Transpose
+    arr.reshape(3,4) – change shape.
+    arr.T – transpose rows ↔ columns.
+    arr.flatten() – 2D → 1D
 
 '''
+
