@@ -453,6 +453,7 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
     3. flatten() converts any N-dimensional array into a 1D array.
         It makes a copy of the data in row-major (C-style) order by default.
         Think of it as unfolding a folded bedsheet into one straight line.
+        Hindi: फ़्लैट करना = समतल करना, सीधा कर देना
         arr = np.array([[1, 2, 3],
                 [4, 5, 6],
                 [7, 8, 9]])
@@ -484,8 +485,252 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
              [2]
              [3]
              [4]]
-                               
-11. NumPy Axis Concept (NumPy Axes Trick)
+    Split:
+        It splits one array into multiple sub-arrays.
+        You decide how many splits or at which indices to split.
+        Think of it like cutting a chocolate bar into pieces (Hindi: टुकड़े करना).
+        Syntax
+            np.split(array, sections, axis=0)
+            array: The array you want to split.
+            sections: Either:
+                An integer (number of equal parts), or
+                A list of indices where you want to split.
+            axis: Which axis (0 = rows, 1 = columns).
+
+        Example 1: Split into Equal Parts
+            arr = np.array([1,2,3,4,5,6])
+            parts = np.split(arr, 3)  # split into 3 equal parts
+            print(parts)
+            # output: [array([1, 2]), array([3, 4]), array([5, 6])]
+             
+            So the 1D array of 6 elements gets split into three 2-element arrays.
+            Note: If you try np.split(arr, 4) here, it will throw an error because 6 cannot be evenly divided into 4 equal parts.
+ 
+        Example 2: Split at Specific Indices
+            arr = np.array([10,20,30,40,50,60])
+            parts = np.split(arr, [2,5])
+            print(parts)
+            # Output: [array([10, 20]), array([30, 40, 50]), array([60])]
+            Here:
+                Split at index 2 → [10,20]
+                Split at index 5 → [30,40,50]
+                Remaining → [60]
+            
+                So you can control where cuts happen.
+        # Example 3: Split 2D Array Row-wise
+            arr = np.array([[1,2],
+                            [3,4],
+                            [5,6],
+                            [7,8]])
+            
+            upper, lower = np.split(arr, 2)  # split into 2 equal row-wise parts
+            print(upper)
+            Output: [ [1 2]
+                        [3 4] ]
+            print(lower)
+            Output: [ [5 6]
+                        [7 8]]
+        # Example 4: Split 2D Array Column-wise
+            Use axis=1:
+            arr = np.array([[1,2,3,4],
+                            [5,6,7,8]])
+            
+            left, right = np.split(arr, 2, axis=0)
+            print(left)
+             Output: [ [1 2]
+                       [5 6]]
+            print(right)
+             Output: [ [[3 4]
+                       [7 8]]
+            
+            # Now you have left half and right half split by columns.           
+            
+            left, right = np.split(arr, 2, axis=0)
+            print(left)
+            Output: [[1 2 3 4]]
+            print(right)
+            Output: [[5 6 7 8]]
+
+12. Sorting & Searching
+    NumPy gives you several useful functions:
+        np.sort(arr) – sorted copy. 
+        np.sort(arr) – – sort in place. => returns a sorted copy of the array.
+        arr.sort() – returns sorted indices. => sorts the array in-place (modifies the original array).
+        np.argsort(arr) – returns sorted indices. => returns the indices that would sort the array.
+        np.where(condition) – indices where condition true. => returns the indices where the condition is true.
+    Think of an exam score sheet with students' marks.
+    Sorting: Arrange the marks from lowest to highest.
+    argsort: Find out which students should stand in which position if arranged by marks.
+    where: Find who scored above 50 (filtering based on a condition).
+    
+    Example 1: np.sort() vs arr.sort()
+        => np.sort() = New Sorted (doesn't touch original)
+        marks = np.array([70, 40, 90, 60])
+        sorted_marks = np.sort(marks)   # returns sorted copy
+        print("Sorted copy:", sorted_marks) # [40 60 70 90]   Sorted copy
+        print("Original:", marks)       #     [70 40 90 60]   Original unchanged
+        
+        => arr.sort() = Same Sorted (changes original)
+        marks.sort()                    # sorts in-place
+        print("In-place sorted:", marks) # [40 60 70 90]
+        
+    Example 2. np.argsort() – Sorting Indices
+        Suppose you want to know the order of students by rank.
+        marks = np.array([70, 40, 90, 60])
+        order = np.argsort(marks)
+        print(order) # [1 3 0 2]
+            Index 1 (40) is smallest
+            Index 3 (60) is next            
+            Index 0 (70) is next           
+            Index 2 (90) is largest
+        If you want marks sorted and their original indices:
+            sorted_marks = marks[order]
+            print(sorted_marks)  # [40 60 70 90]
+    Example 3. np.where(condition) – Searching with Condition
+        Find students who scored above 50:
+        marks = np.array([70, 40, 90, 60])
+        indices = np.where(marks > 50)
+        print(indices) # (array([0, 2, 3]),)
+        print("Students above 50:", marks[indices]) # [70 90 60]
+        So students at indices 0, 2, 3 scored above 50.
+        
+        You can also use it for complex conditions:
+        np.where((marks > 50) & (marks < 80))
+    Example 4. Sorting 2D Arrays
+        arr = np.array([[3, 7],
+                [1, 9]])
+
+        print(np.sort(arr, axis=0))  # sort column-wise
+            [[1 7]
+             [3 9]]  # column-wise
+        print(np.sort(arr, axis=1))  # sort row-wise        
+            [[3 7]
+             [1 9]]  # row-wise
+  
+13. Linear Algebra & Statistics
+    np.dot(a,b)     # matrix multiplication
+    np.linalg.inv(a)# inverse
+    np.corrcoef(x,y)# correlation
+    
+    A) Linear Algebra (रेखीय बीजगणित): 
+        Linear algebra is about working with vectors and matrices. NumPy provides many useful functions.
+        1) Matrix Multiplication (np.dot or @)
+            Imagine you have a restaurant with 2 products:
+                Burger price = ₹50
+                Pizza price = ₹100
+                
+                prices = np.array([50, 100])      # [Burger_price, Pizza_price]
+            You sold:
+                On Monday: 10 burgers, 5 pizzas
+                On Tuesday: 3 burgers, 7 pizzas
+                
+                quantities = np.array([[10, 5],   # Day 1 sales
+                                   [3, 7]])   # Day 2 sales
+            We want total sales each day.
+            # Matrix multiplication
+            total_sales = np.dot(quantities, prices)
+            print(total_sales)
+            #Output: [1000  850]
+            Interpretation:
+                Monday sales = 1050 + 5100 = 1000
+                Tuesday sales = 350 + 7100 = 850
+                Mnemonic (याद रखने का तरीका):
+                Dot product = "Multiply & Add row-wise"
+                
+            You can also use @:
+            total_sales = quantities @ prices
+    
+        2) Matrix Inverse (np.linalg.inv)
+            Suppose you have:
+            A = np.array([[1, 2],
+                          [3, 4]])
+            
+            The inverse of a matrix is used in solving linear equations.
+            inv_A = np.linalg.inv(A)
+            print(inv_A)
+            Output:
+            [[-2.   1. ]
+             [ 1.5 -0.5]]
+            
+            
+            Check: A @ inv_A ≈ Identity Matrix
+    
+        3) Solving Linear Equations (np.linalg.solve)
+            Real-life analogy:
+            You run a juice shop.
+            
+            1 Mango + 2 Orange costs ₹10
+            3 Mango + 4 Orange costs ₹24
+            
+            Find price of 1 Mango & 1 Orange.
+            Equation:
+            x + 2y = 10
+            3x + 4y = 24
+            
+            A = np.array([[1, 2],
+                          [3, 4]])
+            b = np.array([10, 24])
+            
+            solution = np.linalg.solve(A, b)
+            print(solution)
+            Output:
+            [2. 4.]
+            
+            Mango price ₹2, Orange ₹4.
+            
+    B) Statistics (सांख्यिकी)
+        NumPy provides statistical functions: mean, median, std deviation, correlation etc.
+        Let's take marks:
+        marks = np.array([70, 40, 90, 60, 85, 30, 95, 50])
+        
+        1) Mean (औसत): Average marks.
+        np.mean(marks)
+        Output:
+        65.0
+        
+        
+        2) Median (मध्य मान)
+        Median = middle value when sorted.
+        np.median(marks)
+        Output:
+        65.0
+        
+        3) Standard Deviation (मानक विचलन)
+        Std Dev shows how spread out the marks are.
+        np.std(marks)
+        
+        If std is low → marks are close to mean.
+        If std is high → marks vary a lot.
+        
+        4) Correlation Coefficient (np.corrcoef)
+        Correlation shows relationship between two datasets (values between -1 and 1):
+        1 = perfect positive relation
+        -1 = perfect negative relation
+        0 = no relation
+        
+        Example:
+        Study Hours vs Marks.
+        hours = np.array([2, 4, 6, 8, 10])
+        marks = np.array([30, 50, 65, 80, 95])
+        
+        correlation = np.corrcoef(hours, marks)
+        print(correlation)
+        Output (matrix):
+        [[1. , 0.997]
+         [0.997, 1. ]]
+        
+        Almost 1 → Strong positive relation: more study hours → more marks.
+        Memory Trick:
+            dot / @ → Multiply & add (matrix multiplication)
+            inv → Reverse effect (inverse matrix)
+            solve → Solves equations directly
+            mean, median, std → Basic stats
+            corrcoef → Relationship strength         
+
+
+
+                        
+14. NumPy Axis Concept (NumPy Axes Trick)
     When confused about axis, use the table analogy:    
     Axis 0 → down the rows (like summing each column). → Vertical (down) → 0 like a vertical stick. 
            → Operation works vertically down the rows (columns wise).   
@@ -531,15 +776,13 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
 
 
 
-
-
-11. Real-Life Use Cases 
+15. Real-Life Use Cases 
     Finance: Stock price arrays, bulk calculations.
     Images: Photos are just 3D NumPy arrays (height, width, color).
     AI/ML: Every neural network uses NumPy-like arrays internally.
     Logistics: Inventory management (rows = products, columns = warehouses).
 
-12. Super Memory Trick: The Warehouse Story
+16. Super Memory Trick: The Warehouse Story
     Whenever you think of NumPy, visualize a warehouse:
     Arrays = neatly arranged shelves.
     Operations = forklift machines doing work at lightning speed.
@@ -557,3 +800,5 @@ ChatGPT: Absolutely! Let's make NumPy so intuitive and memorable that you’ll n
  
 
 '''
+
+
