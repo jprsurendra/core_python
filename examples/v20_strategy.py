@@ -6,7 +6,19 @@ import matplotlib.pyplot as plt
 # -----------------------------
 # SETTINGS
 # -----------------------------
-TICKER = "AAPL"            # example: "AAPL", "INFY.NS", "^NSEI", "BTC-USD"
+# TICKER = "AAPL"            # example: "AAPL", "INFY.NS", "^NSEI", "BTC-USD"
+'''
+Yahoo Finance uses different ticker symbols for Indian stocks.
+You must append the “.NS” suffix (for NSE India) or “.BO” (for BSE India).
+| Exchange     | Example             | Format |
+| ------------ | ------------------- | ------ |
+| NSE (India)  | Infosys → `INFY.NS` | `.NS`  |
+| BSE (India)  | Infosys → `INFY.BO` | `.BO`  |
+| NASDAQ (USA) | Apple → `AAPL`      | none   |
+| NYSE (USA)   | IBM → `IBM`         | none   |
+| ------------ | ------------------- | ------ |
+'''
+TICKER = "AKZOINDIA.NS"            # example: "AKZOINDIA", "Akzo Nobel India Limited", "NSE""
 START_DATE = "2023-01-01"
 END_DATE = "2025-01-01"
 
@@ -54,10 +66,16 @@ profit_pct = ((balance - initial_balance) / initial_balance) * 100
 # -----------------------------
 # RESULTS
 # -----------------------------
+print("Strategy: V20")
 print(f"Ticker: {TICKER}")
 print(f"Start Date: {START_DATE}  End Date: {END_DATE}")
 print(f"Final Portfolio Value: ${balance:,.2f}")
 print(f"Total Return: {profit_pct:.2f}%")
+
+USD_TO_INR = 84.5  # you can update this as per current rate
+balance_in_inr = balance * USD_TO_INR
+print(f"Final Portfolio Value: ₹{balance_in_inr:,.2f}")
+print(f"Total Return: {profit_pct:.2f}% (converted from USD)")
 
 # -----------------------------
 # PLOT
@@ -76,3 +94,5 @@ plt.scatter(df.loc[df["Position"] == -1].index,
 
 plt.title(f"V20 Strategy on {TICKER}")
 plt.legend()
+
+
