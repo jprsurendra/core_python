@@ -1,88 +1,78 @@
 import yfinance as yf
-# pip install yfinance
 import pandas as pd
 import numpy as np
-from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
 
-def fetch_data(symbol, start, end=None):
-    df = yf.download(symbol, start=start, end=end, progress=False)
-    df = df[['Open','High','Low','Close','Adj Close','Volume']]
-    df.rename(columns={'Adj Close':'AdjClose'}, inplace=True)
-    return df
+# -----------------------------
+# SETTINGS
+# -----------------------------
+TICKER = "AAPL"            # example: "AAPL", "INFY.NS", "^NSEI", "BTC-USD"
+START_DATE = "2023-01-01"
+END_DATE = "2025-01-01"
 
-def detect_v20_streaks(df, pct_threshold=0.20, min_length=2):
-    """
-    Returns a list of streaks: each streak is tuple (start_idx, end_idx, low_range, high_range)
-    """
-    streaks = []
-    n = len(df)
-    i = 0
-    while i < n-1:
-        # start a potential green streak
-        if df['Close'].iloc[i+1] > df['Close'].iloc[i]:
-            j = i+1
-            low = df['Low'].iloc[i]
-            high = df['High'].iloc[i]
-            # include the first candle in streak
-            low = min(low, df['Low'].iloc[i])
-            high = max(high, df['High'].iloc[i])
-            # extend streak
-            while j < n and df['Close'].iloc[j] > df['Close'].iloc[j-1]:
-                low = min(low, df['Low'].iloc[j])
-                high = max(high, df['High'].iloc[j])
-                j += 1
-            length = j - i
-            if length >= min_length and (high / low - 1) >= pct_threshold:
-                streaks.append((i, j-1, low, high))
-            # move i to end of this streak
-            i = j
-        else:
-            i += 1
-    return streaks
+# -----------------------------
+# FETCH DATA
+# -----------------------------
+df = yf.download(TICKER, start=START_DATE, end=END_DATE)
 
-def apply_v20_strategy(symbol, start, end=None, pct_threshold=0.20):
-    df = fetch_data(symbol, start, end)
-    df = df.dropna().reset_index()
-    streaks = detect_v20_streaks(df, pct_threshold=pct_threshold)
+# Handle missing Adj Close
+if "Adj Close" in df.columns:
+    df["Price"] = df["Adj Close"]
+else:
+    df["Price"] = df["Close"]
 
-    trades = []
-    # For each found streak, mark range and then look for entry & exit
-    for (s, e, low_range, high_range) in streaks:
-        # After the streak ends at index e, we look forward for entry/exit
-        for idx in range(e+1, len(df)):
-            row = df.iloc[idx]
-            price = row['AdjClose']
-            date = row['Date']
-            # Entry condition
-            if price <= low_range:
-                entry_date = date
-                entry_price = price
-                # Now look for exit after entry
-                for exit_idx in range(idx+1, len(df)):
-                    exit_row = df.iloc[exit_idx]
-                    exit_price = exit_row['AdjClose']
-                    exit_date = exit_row['Date']
-                    if exit_price >= high_range:
-                        trades.append({
-                            'symbol': symbol,
-                            'streak_start': df.iloc[s]['Date'],
-                            'streak_end': df.iloc[e]['Date'],
-                            'low_range': low_range,
-                            'high_range': high_range,
-                            'entry_date': entry_date,
-                            'entry_price': entry_price,
-                            'exit_date': exit_date,
-                            'exit_price': exit_price,
-                            'pct_gain': (exit_price/entry_price - 1) * 100
-                        })
-                        # stop after first exit
-                        break
-                break  # stop looking further for this streak after one trade
-    return trades
+# -----------------------------
+# V20 STRATEGY (20 EMA CROSS)
+# -----------------------------
+df["EMA20"] = df["Price"].ewm(span=20, adjust=False).mean()
 
-if __name__ == "__main__":
-    symbol = "AAPL"  # example
-    start = "2021-01-01"
-    trades = apply_v20_strategy(symbol, start, end=None, pct_threshold=0.20)
-    for t in trades:
-        print(t)
+# Generate buy/sell signals
+df["Signal"] = np.where(df["Price"] > df["EMA20"], 1, 0)
+df["Position"] = df["Signal"].diff()
+
+# -----------------------------
+# BACKTEST LOGIC
+# -----------------------------
+initial_balance = 100000
+balance = initial_balance
+position = 0
+
+for i in range(1, len(df)):
+    if df["Position"].iloc[i] == 1:   # Buy Signal
+        position = balance / df["Price"].iloc[i]
+        balance = 0
+    elif df["Position"].iloc[i] == -1:  # Sell Signal
+        balance = position * df["Price"].iloc[i]
+        position = 0
+
+# Final portfolio value (if holding)
+if position > 0:
+    balance = position * df["Price"].iloc[-1]
+
+profit_pct = ((balance - initial_balance) / initial_balance) * 100
+
+# -----------------------------
+# RESULTS
+# -----------------------------
+print(f"Ticker: {TICKER}")
+print(f"Start Date: {START_DATE}  End Date: {END_DATE}")
+print(f"Final Portfolio Value: ${balance:,.2f}")
+print(f"Total Return: {profit_pct:.2f}%")
+
+# -----------------------------
+# PLOT
+# -----------------------------
+plt.figure(figsize=(12,6))
+plt.plot(df.index, df["Price"], label="Price", alpha=0.8)
+plt.plot(df.index, df["EMA20"], label="EMA20", linestyle="--")
+
+plt.scatter(df.loc[df["Position"] == 1].index,
+            df.loc[df["Position"] == 1]["Price"],
+            marker="^", color="g", label="Buy Signal", alpha=1)
+
+plt.scatter(df.loc[df["Position"] == -1].index,
+            df.loc[df["Position"] == -1]["Price"],
+            marker="v", color="r", label="Sell Signal", alpha=1)
+
+plt.title(f"V20 Strategy on {TICKER}")
+plt.legend()
