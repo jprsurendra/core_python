@@ -24,8 +24,15 @@ END_DATE = "2025-01-01"
 
 # -----------------------------
 # FETCH DATA
+#   fetch_historical_stock_price_data_from_yahoo_finance_library
 # -----------------------------
-df = yf.download(TICKER, start=START_DATE, end=END_DATE)
+# df = yf.download(TICKER, start=START_DATE, end=END_DATE)
+
+filename = "AKZOINDIA_NS_data_2017-01-01_to_2025-11-01.csv"
+
+# ✅ Read from local CSV instead of Yahoo
+df = pd.read_csv(filename, parse_dates=["Date"], index_col="Date")
+
 
 # Handle missing Adj Close
 if "Adj Close" in df.columns:

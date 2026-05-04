@@ -18,9 +18,9 @@ import hashlib
 from collections import defaultdict
 
 # -------- SETTINGS --------
-SCAN_PATH = "/home/ssr/Downloads"                 # Change path like "/home/ssr"
+SCAN_PATH = "/mnt/usb-TOSHIBA_External_USB_3.0_20170530006600F-0:0-part7/"                 # Change path like "/home/ssr"
 MIN_FILE_SIZE_MB = 100         # Only files above this size
-CHUNK_SIZE = 1024 * 1024       # 1MB
+CHUNK_SIZE = 1024 * 1024 * 10       # 1MB = 1024 * 1024
 # --------------------------
 
 

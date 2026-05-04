@@ -183,14 +183,14 @@ def main():
 
     # Test cases
     test_numbers = [
-        "123-45678901",  # AWB
-        "ABCD1234567",  # Container
+        "123-45678901",   # AWB
+        "ABCD1234567",    # Container
         "MAEU123456789",  # MBL
-        "HLC1234567",  # HBL
-        "COSU123456",  # Booking
-        "618-12345675",  # AWB with valid check digit
-        "TGHU2345678",  # Container with valid check digit
-        "123456789012",  # Unknown
+        "HLC1234567",     # HBL
+        "COSU123456",     # Booking
+        "618-12345675",   # AWB with valid check digit
+        "TGHU2345678",    # Container with valid check digit
+        "123456789012",   # Unknown
     ]
 
     print("Shipment Number Identification Results:")

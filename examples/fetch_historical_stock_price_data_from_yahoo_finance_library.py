@@ -2,7 +2,7 @@ import yfinance as yf
 import pandas as pd
 
 # --- Configuration ---
-TICKER = "AKZOINDIA.NS"     # Example: AKZOINDIA.NS
+TICKER = "HDFCBANK.NS"     # Example: AKZOINDIA.NS
 START_DATE = "2017-01-01"
 END_DATE = "2025-11-01"
 CSV_FILE = f"{TICKER.replace('.', '_')}_data_{START_DATE}_to_{END_DATE}.csv"
