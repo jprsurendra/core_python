@@ -1,4 +1,21 @@
 """
+Module 1 — LLM Fundamentals (The Core Architecture)
+आज हम शुरू करेंगे Tokens और Embeddings से।
+
+एक Python developer के रूप में, आप जानते हैं कि मशीनें strings को सीधे process नहीं करतीं। LLMs में text process करने के दो मुख्य stages होते हैं:
+
+1. Tokenization: यह text को छोटे meaningful units (Tokens) में तोड़ता है। यह सिर्फ split(' ') नहीं है; यह sub-word level पर काम करता है।
+
+2. Embeddings: यह सबसे महत्वपूर्ण हिस्सा है। हर Token को एक high-dimensional vector (numbers की list) में convert किया जाता है।
+
+Logic: "King" और "Queen" के vectors mathematical space में एक-दूसरे के करीब होंगे, जबकि "Apple" का vector उनसे दूर होगा।
+
+Architectural Flow:
+Input Text -> Tokenizer -> Input IDs -> Embedding Model -> Vectors (Arrays of Floats)
+
+जब आप query करते हैं, तो system mathematically 'Cosine Similarity' का उपयोग करके सबसे मिलते-जुलते vectors ढूंढता है।
+
+
 Module 1 — Concept 1: Tokenization
 
 """
@@ -28,6 +45,7 @@ def analyze_tokens(text: str) -> dict:
     }
 
 texts = [
+    "king queen database",
     "Hello, world!",
     "Tokenization is fascinating.",
     "मैं Python developer हूँ।",   # Hindi text
